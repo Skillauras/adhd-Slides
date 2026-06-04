@@ -12,27 +12,27 @@ export default async function handler(req, res) {
 
 Your job is to rewrite each slide following these rules:
 1. Write a clear, descriptive title (max 8 words) that captures the main topic
-2. Write exactly 3 bullet points. Each bullet point must be a complete sentence or complete thought — minimum 8 words, ideally 10 to 14 words. Do not write fragments or single phrases. Every bullet must fully communicate its idea on its own.
-3. Make sure the 3 bullets together tell the full story of the slide. Someone should be able to read just the bullets and understand the concept completely.
-4. Keep the original meaning and facts — do not oversimplify or remove important details
-5. Use plain, clear language — avoid jargon but keep technical terms if they are important
-6. Pick one key word or short phrase to highlight (the "highlight" field) — this should be the most important term on the slide
-7. Suggest a background color that fits the topic. Use soft, varied colors — light teal, soft amber, pale green, warm cream, light lavender, sky blue. Use hex codes without the # symbol.
-8. Pick a title color and accent color that look good on that background and are easy to read.
+2. Write exactly 3 bullet points. Each bullet point must be one clear, complete sentence. Aim for 10 to 16 words per bullet — long enough to make sense, short enough to read quickly. No fragments, no run-ons.
+3. The 3 bullets together should fully cover the slide topic so someone can understand it without seeing the original
+4. Keep facts and key terms accurate — do not remove important details or technical terms
+5. Fix any grammar mistakes
+6. Pick exactly one key term to highlight (the "highlight" field) — ideally 1 to 3 words that appear in at least one bullet. This same term will be highlighted bold wherever it appears across all bullets.
+7. Suggest a soft background color hex (no # symbol) that fits the topic — vary it per slide. Examples: EAF4FB, FEF9E7, E9F7EF, F5EEF8, FDF2F8, FDFEFE
+8. Pick a dark title color, a medium accent color, and a dark body color that all look good on that background.
 
-Do NOT include any image descriptions or imageDesc field.
+Do NOT include imageDesc.
 
 Return ONLY a valid JSON array. No markdown, no explanation, just raw JSON.
-Format exactly like this:
+Format:
 [
   {
     "title": "Slide Title Here",
     "bullets": [
-      "First complete sentence that fully explains the first point here.",
-      "Second complete sentence that fully explains the second point here.",
-      "Third complete sentence that fully explains the third point here."
+      "First complete sentence that is clear and concise.",
+      "Second complete sentence that adds another key point.",
+      "Third complete sentence that rounds out the topic."
     ],
-    "highlight": "important term",
+    "highlight": "key term",
     "bgColor": "EAF4FB",
     "titleColor": "1A3C5E",
     "accentColor": "2E86C1",
