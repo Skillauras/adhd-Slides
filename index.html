@@ -6,189 +6,221 @@
   <title>SlideFlow</title>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pptxgenjs@3.12.0/dist/pptxgen.bundle.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
-      font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+      font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
+      background: #f5f4f0;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
-      padding: 60px 20px;
+      padding: 56px 20px 48px;
+    }
+
+    nav {
+      width: 100%;
+      max-width: 640px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 64px;
+    }
+
+    .nav-logo {
+      font-size: 17px;
+      font-weight: 700;
+      color: #1a1a1a;
+      letter-spacing: -0.3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav-dot {
+      width: 8px;
+      height: 8px;
+      background: #2563eb;
+      border-radius: 50%;
+      display: inline-block;
     }
 
     .hero {
       text-align: center;
+      max-width: 480px;
       margin-bottom: 48px;
     }
 
-    .hero .badge {
+    .badge {
       display: inline-block;
-      background: rgba(255,255,255,0.1);
-      color: #a78bfa;
-      font-size: 0.8rem;
+      background: #dbeafe;
+      color: #1d4ed8;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.1em;
+      letter-spacing: 0.08em;
       text-transform: uppercase;
-      padding: 6px 16px;
-      border-radius: 99px;
-      margin-bottom: 20px;
-      border: 1px solid rgba(167,139,250,0.3);
+      padding: 4px 12px;
+      border-radius: 4px;
+      margin-bottom: 18px;
     }
 
     .hero h1 {
-      font-size: 3rem;
-      font-weight: 800;
-      color: white;
-      margin-bottom: 16px;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
-    }
-
-    .hero h1 span {
-      background: linear-gradient(90deg, #a78bfa, #60a5fa);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      font-size: 2.4rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.15;
+      letter-spacing: -0.5px;
+      margin-bottom: 14px;
     }
 
     .hero p {
-      color: rgba(255,255,255,0.6);
-      font-size: 1.1rem;
-      max-width: 440px;
-      margin: 0 auto;
-      line-height: 1.6;
+      font-size: 1rem;
+      color: #6b7280;
+      line-height: 1.65;
     }
 
     .card {
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
-      padding: 40px;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 32px;
       width: 100%;
-      max-width: 580px;
-      margin-bottom: 16px;
+      max-width: 520px;
+      margin-bottom: 12px;
     }
 
     .drop-zone {
-      border: 2px dashed rgba(255,255,255,0.2);
-      border-radius: 16px;
-      padding: 56px 24px;
+      border: 1.5px dashed #d1d5db;
+      border-radius: 8px;
+      padding: 48px 24px;
       text-align: center;
       cursor: pointer;
-      transition: all 0.25s;
-      background: rgba(255,255,255,0.03);
+      background: #fafafa;
+      transition: border-color 0.2s, background 0.2s;
     }
 
     .drop-zone:hover, .drop-zone.drag-over {
-      border-color: #a78bfa;
-      background: rgba(167,139,250,0.08);
+      border-color: #2563eb;
+      background: #eff6ff;
     }
 
-    .drop-zone .icon { font-size: 3rem; margin-bottom: 14px; }
-    .drop-zone .label { font-size: 1.1rem; color: white; font-weight: 600; }
-    .drop-zone .sublabel { font-size: 0.88rem; color: rgba(255,255,255,0.4); margin-top: 6px; }
+    .drop-icon {
+      width: 40px;
+      height: 40px;
+      background: #eff6ff;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 14px;
+      font-size: 20px;
+    }
+
+    .drop-label { font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 4px; }
+    .drop-sub { font-size: 13px; color: #9ca3af; }
 
     .file-selected {
       display: none;
       align-items: center;
-      gap: 12px;
-      padding: 14px 18px;
-      background: rgba(167,139,250,0.15);
-      border: 1px solid rgba(167,139,250,0.3);
-      border-radius: 12px;
-      margin-top: 16px;
+      gap: 10px;
+      padding: 11px 14px;
+      background: #f0f9ff;
+      border: 1px solid #bae6fd;
+      border-radius: 7px;
+      margin-top: 14px;
     }
 
     .file-selected .filename {
-      font-weight: 600;
-      color: #c4b5fd;
-      font-size: 0.95rem;
+      font-size: 13px;
+      font-weight: 500;
+      color: #0369a1;
       word-break: break-all;
     }
 
-    button.main-btn {
+    .main-btn {
       width: 100%;
-      padding: 18px;
-      background: linear-gradient(135deg, #7c3aed, #4f46e5);
+      padding: 14px;
+      background: #1d4ed8;
       color: white;
       border: none;
-      border-radius: 14px;
-      font-size: 1.05rem;
-      font-weight: 700;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 16px;
-      letter-spacing: 0.01em;
-      box-shadow: 0 8px 32px rgba(124,58,237,0.4);
+      margin-top: 14px;
+      font-family: 'Open Sans', sans-serif;
+      transition: background 0.2s;
     }
 
-    button.main-btn:hover:not(:disabled) {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(124,58,237,0.5);
-    }
+    .main-btn:hover:not(:disabled) { background: #1e40af; }
 
-    button.main-btn:disabled {
-      background: rgba(255,255,255,0.1);
-      color: rgba(255,255,255,0.3);
+    .main-btn:disabled {
+      background: #e5e7eb;
+      color: #9ca3af;
       cursor: not-allowed;
-      box-shadow: none;
-      transform: none;
     }
 
-    .status-box {
-      display: none;
-      background: rgba(255,255,255,0.05);
-      backdrop-filter: blur(20px);
-      border: 1px solid rgba(255,255,255,0.1);
-      border-radius: 24px;
-      padding: 40px;
+    .features {
+      display: flex;
+      gap: 8px;
       width: 100%;
-      max-width: 580px;
-      text-align: center;
+      max-width: 520px;
+      margin-top: 4px;
       margin-bottom: 16px;
     }
 
+    .feat {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 8px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .feat-icon { font-size: 18px; margin-bottom: 6px; display: block; }
+    .feat-label { font-size: 11.5px; color: #6b7280; line-height: 1.4; }
+
+    .status-box {
+      display: none;
+      background: #ffffff;
+      border: 1px solid #e5e7eb;
+      border-radius: 12px;
+      padding: 32px;
+      width: 100%;
+      max-width: 520px;
+      text-align: center;
+      margin-bottom: 12px;
+    }
+
     .spinner {
-      width: 52px;
-      height: 52px;
-      border: 4px solid rgba(255,255,255,0.1);
-      border-top-color: #a78bfa;
+      width: 40px;
+      height: 40px;
+      border: 3px solid #e5e7eb;
+      border-top-color: #2563eb;
       border-radius: 50%;
       animation: spin 0.8s linear infinite;
-      margin: 0 auto 24px;
+      margin: 0 auto 20px;
     }
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .status-text {
-      font-size: 1.05rem;
-      color: white;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .status-sub {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.4);
-    }
+    .status-text { font-size: 15px; color: #111827; font-weight: 600; margin-bottom: 4px; }
+    .status-sub { font-size: 13px; color: #9ca3af; }
 
     .progress-bar-wrap {
-      background: rgba(255,255,255,0.1);
+      background: #f3f4f6;
       border-radius: 99px;
-      height: 6px;
-      margin-top: 24px;
+      height: 5px;
+      margin-top: 20px;
       overflow: hidden;
     }
 
     .progress-bar {
       height: 100%;
-      background: linear-gradient(90deg, #7c3aed, #60a5fa);
+      background: #2563eb;
       border-radius: 99px;
       transition: width 0.4s ease;
       width: 0%;
@@ -197,69 +229,55 @@
     .download-btn {
       display: none;
       width: 100%;
-      max-width: 580px;
-      padding: 20px;
-      background: linear-gradient(135deg, #059669, #0d9488);
+      max-width: 520px;
+      padding: 14px;
+      background: #059669;
       color: white;
       border: none;
-      border-radius: 14px;
-      font-size: 1.1rem;
-      font-weight: 700;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 600;
       cursor: pointer;
-      transition: all 0.2s;
-      margin-top: 8px;
-      box-shadow: 0 8px 32px rgba(5,150,105,0.4);
-      letter-spacing: 0.01em;
+      font-family: 'Open Sans', sans-serif;
+      transition: background 0.2s;
     }
 
-    .download-btn:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 12px 40px rgba(5,150,105,0.5);
-    }
+    .download-btn:hover { background: #047857; }
 
     .error-box {
       display: none;
-      background: rgba(239,68,68,0.15);
-      border: 1px solid rgba(239,68,68,0.4);
-      border-radius: 12px;
-      padding: 14px 18px;
-      color: #fca5a5;
-      font-size: 0.92rem;
-      margin-top: 16px;
-    }
-
-    .description-box {
-      width: 100%;
-      max-width: 580px;
-      text-align: center;
-      padding: 0 8px;
-      margin-bottom: 8px;
-    }
-
-    .description-box p {
-      color: rgba(255,255,255,0.45);
-      font-size: 0.88rem;
-      line-height: 1.7;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+      border-radius: 8px;
+      padding: 12px 16px;
+      color: #dc2626;
+      font-size: 13px;
+      margin-top: 14px;
     }
 
     @media (max-width: 500px) {
-      .hero h1 { font-size: 2.2rem; }
-      .card { padding: 28px 20px; }
+      .hero h1 { font-size: 1.9rem; }
+      .card { padding: 24px 16px; }
     }
   </style>
 </head>
 <body>
 
+  <nav>
+    <div class="nav-logo"><span class="nav-dot"></span>SlideFlow</div>
+  </nav>
+
   <div class="hero">
-    <h1>✦ <span>SlideFlow</span></h1>
-    <p>Upload any PowerPoint and get back a cleaner, calmer version your brain will actually enjoy reading.</p>
+    <div class="badge">Free to use</div>
+    <h1>Turn dense slides into<br>something readable.</h1>
+    <p>Upload your PowerPoint and get a cleaner version back. Less text, better structure, easier to follow.</p>
   </div>
 
   <div class="card">
     <div class="drop-zone" id="dropZone">
-      <div class="icon">📊</div>
-      <div class="label">Drop your .pptx file here</div>
-      <div class="sublabel">or click to browse</div>
+      <div class="drop-icon">📊</div>
+      <div class="drop-label">Drop your .pptx file here</div>
+      <div class="drop-sub">or click to browse</div>
       <input type="file" id="fileInput" accept=".pptx" style="display:none" />
     </div>
     <div class="file-selected" id="fileSelected">
@@ -267,17 +285,28 @@
       <span class="filename" id="fileName"></span>
     </div>
     <div class="error-box" id="errorBox"></div>
-    <button class="main-btn" id="fixBtn" disabled>✨ Fix My Slides</button>
+    <button class="main-btn" id="fixBtn" disabled>Process slides</button>
   </div>
 
-  <div class="description-box">
-    <p>Our AI rewrites every slide — one clear point at a time, calm colors, big text, and highlighted key words. No overwhelm. Just clarity.</p>
+  <div class="features">
+    <div class="feat">
+      <span class="feat-icon">🔑</span>
+      <div class="feat-label">Key words<br>highlighted</div>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">✏️</span>
+      <div class="feat-label">Simplified<br>language</div>
+    </div>
+    <div class="feat">
+      <span class="feat-icon">⬇️</span>
+      <div class="feat-label">Download<br>as .pptx</div>
+    </div>
   </div>
 
   <div class="status-box" id="statusBox">
     <div class="spinner"></div>
-    <div class="status-text" id="statusText">Reading your slides...</div>
-    <div class="status-sub" id="statusSub">This may take 30–60 seconds</div>
+    <div class="status-text" id="statusText">Processing your slides...</div>
+    <div class="status-sub" id="statusSub">This may take 30-60 seconds</div>
     <div class="progress-bar-wrap">
       <div class="progress-bar" id="progressBar"></div>
     </div>
@@ -320,11 +349,7 @@
     fileName.textContent = file.name;
     fileSelected.style.display = 'flex';
     hideError();
-    updateFixBtn();
-  }
-
-  function updateFixBtn() {
-    fixBtn.disabled = !uploadedFile;
+    fixBtn.disabled = false;
   }
 
   fixBtn.addEventListener('click', async () => {
@@ -361,7 +386,7 @@
     const url = URL.createObjectURL(fixedBlob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'adhd-fixed-slides.pptx';
+    a.download = 'slideflow-fixed.pptx';
     a.click();
     URL.revokeObjectURL(url);
   });
@@ -442,48 +467,47 @@
     const pres = new PptxGenJS();
     pres.layout = 'LAYOUT_16x9';
 
-    const BG = 'F8FAFC';
-    const TITLE_COLOR = '1E3A5F';
-    const BODY_COLOR = '374151';
-    const ACCENT = '3B82F6';
-    const HIGHLIGHT_BG = 'EFF6FF';
-
     for (let i = 0; i < slides.length; i++) {
       const s = slides[i];
       const slide = pres.addSlide();
-      slide.background = { color: BG };
+
+      const bg = s.bgColor || 'FFFFFF';
+      const titleColor = s.titleColor || '1E3A5F';
+      const accentColor = s.accentColor || '3B82F6';
+      const bodyColor = s.bodyColor || '374151';
+
+      slide.background = { color: bg };
 
       const isFirst = i === 0;
 
       if (isFirst) {
-        slide.background = { color: '1E3A5F' };
         slide.addText(s.title, {
-          x: 0.8, y: 1.5, w: 8.4, h: 1.8,
-          fontSize: 40, bold: true, color: 'FFFFFF',
-          fontFace: 'Arial', align: 'center', valign: 'middle'
+          x: 0.8, y: 1.4, w: 8.4, h: 2.0,
+          fontSize: 40, bold: true, color: titleColor,
+          fontFace: 'Calibri', align: 'center', valign: 'middle'
         });
         if (s.bullets && s.bullets.length > 0) {
           slide.addText(s.bullets[0], {
-            x: 0.8, y: 3.5, w: 8.4, h: 0.8,
-            fontSize: 22, color: 'CADCFC',
-            fontFace: 'Arial', align: 'center'
+            x: 0.8, y: 3.6, w: 8.4, h: 0.9,
+            fontSize: 22, color: bodyColor,
+            fontFace: 'Calibri', align: 'center'
           });
         }
       } else {
         slide.addShape(pres.shapes.RECTANGLE, {
           x: 0, y: 0, w: 0.18, h: 5.625,
-          fill: { color: ACCENT }, line: { color: ACCENT }
+          fill: { color: accentColor }, line: { color: accentColor }
         });
 
         slide.addText(`${i} / ${slides.length - 1}`, {
           x: 8.5, y: 0.15, w: 1.3, h: 0.35,
-          fontSize: 11, color: 'A0AEC0', align: 'right', fontFace: 'Arial'
+          fontSize: 11, color: 'A0AEC0', align: 'right', fontFace: 'Calibri'
         });
 
         slide.addText(s.title, {
           x: 0.5, y: 0.2, w: 8.8, h: 0.85,
-          fontSize: 32, bold: true, color: TITLE_COLOR,
-          fontFace: 'Arial', valign: 'middle'
+          fontSize: 30, bold: true, color: titleColor,
+          fontFace: 'Calibri', valign: 'middle'
         });
 
         slide.addShape(pres.shapes.RECTANGLE, {
@@ -501,44 +525,44 @@
 
           if (isHighlighted) {
             slide.addShape(pres.shapes.RECTANGLE, {
-              x: 0.45, y: yPos - 0.05, w: 8.9, h: 0.65,
-              fill: { color: HIGHLIGHT_BG }, line: { color: 'BFDBFE', pt: 1 }
+              x: 0.45, y: yPos - 0.05, w: 8.9, h: 0.72,
+              fill: { color: 'EFF6FF' }, line: { color: 'BFDBFE', pt: 1 }
             });
           }
 
           let textRuns;
-          if (highlight && bulletText.toLowerCase().includes(highlight.toLowerCase())) {
+          if (isHighlighted) {
             const idx = bulletText.toLowerCase().indexOf(highlight.toLowerCase());
             const before = bulletText.slice(0, idx);
             const match = bulletText.slice(idx, idx + highlight.length);
             const after = bulletText.slice(idx + highlight.length);
             textRuns = [
-              ...(before ? [{ text: before, options: { color: BODY_COLOR } }] : []),
-              { text: match, options: { bold: true, color: ACCENT } },
-              ...(after ? [{ text: after, options: { color: BODY_COLOR } }] : [])
+              ...(before ? [{ text: before, options: { color: bodyColor } }] : []),
+              { text: match, options: { bold: true, color: accentColor } },
+              ...(after ? [{ text: after, options: { color: bodyColor } }] : [])
             ];
           } else {
-            textRuns = [{ text: bulletText, options: { color: BODY_COLOR } }];
+            textRuns = [{ text: bulletText, options: { color: bodyColor } }];
           }
 
           slide.addText(textRuns, {
-            x: 0.7, y: yPos, w: 8.6, h: 0.55,
-            fontSize: 22, fontFace: 'Arial',
+            x: 0.7, y: yPos, w: 8.6, h: 0.62,
+            fontSize: 20, fontFace: 'Calibri',
             bullet: bullets.length > 1 ? true : false,
             valign: 'middle'
           });
 
-          yPos += 0.75;
+          yPos += 0.82;
         }
 
         if (s.imageDesc) {
           slide.addShape(pres.shapes.RECTANGLE, {
             x: 0, y: 5.1, w: 10, h: 0.525,
-            fill: { color: 'EFF6FF' }, line: { color: 'EFF6FF' }
+            fill: { color: 'F8FAFC' }, line: { color: 'F8FAFC' }
           });
           slide.addText('🖼 ' + s.imageDesc, {
             x: 0.5, y: 5.12, w: 9, h: 0.42,
-            fontSize: 13, color: '6B7280', fontFace: 'Arial',
+            fontSize: 12, color: '9CA3AF', fontFace: 'Calibri',
             italic: true, valign: 'middle'
           });
         }
