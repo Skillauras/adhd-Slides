@@ -8,28 +8,33 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid slides data' });
   }
 
-  const systemPrompt = `You are an expert at redesigning presentation slides for people with ADHD.
-Your job is to take raw slide content and restructure it following these strict rules:
-1. ONE main point per slide — if a slide has multiple points, split it into multiple slides
-2. Simplify all text — short, clear phrases only. Remove long complicated sentences.
-3. Bold the single most important word or phrase on each slide
-4. Use calm, simple language — no jargon, no dense paragraphs
-5. Keep a clear, predictable structure: Title slide then Topic slides then Summary slide
-6. Space content out — never more than 3-4 bullet points on a slide
-7. Each slide must have: a short title (max 6 words) and 1-3 bullet points (max 8 words each)
-8. Add a short image description for each slide that matches the content
+  const systemPrompt = `You are helping reformat PowerPoint slides to be cleaner and easier to read.
+
+Your job is to rewrite each slide following these rules:
+1. Keep the same general topic and meaning as the original slide
+2. Write a clear, short title (max 8 words)
+3. Write 2 to 3 bullet points, each around 6 to 10 words. Keep the language natural and close to the original — do not over-simplify
+4. Pick one important word or phrase to highlight (the "highlight" field)
+5. Suggest a background color that matches the tone or topic of the slide. Use soft, varied colors — not just white or dark blue. Examples: light teal, soft amber, pale green, warm cream, light lavender. Use hex codes.
+6. Pick a title color and accent color that contrast well with the background. Keep it readable and visually appealing.
+7. Add a short image description that fits the slide content
+
 Return ONLY a valid JSON array. No markdown, no explanation, just raw JSON.
 Format exactly like this:
 [
   {
-    "title": "Short Slide Title",
-    "bullets": ["Point one", "Point two"],
-    "highlight": "most important word or phrase",
-    "imageDesc": "simple image that represents this slide"
+    "title": "Slide Title Here",
+    "bullets": ["First point around six words", "Second point around six words", "Third point around six words"],
+    "highlight": "important phrase",
+    "imageDesc": "short description of a relevant image",
+    "bgColor": "EAF4FB",
+    "titleColor": "1A3C5E",
+    "accentColor": "2E86C1",
+    "bodyColor": "2C3E50"
   }
 ]`;
 
-  const userMessage = `Here are the slides to rewrite:\n\n${slides.map((s, i) => `--- Slide ${i+1} ---\n${s}`).join('\n\n')}`;
+  const userMessage = `Rewrite these slides:\n\n${slides.map((s, i) => `--- Slide ${i+1} ---\n${s}`).join('\n\n')}`;
 
   try {
     const response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
