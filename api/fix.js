@@ -8,25 +8,31 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: 'Invalid slides data' });
   }
 
-  const systemPrompt = `You are helping reformat PowerPoint slides to be cleaner and easier to read.
+  const systemPrompt = `You are helping reformat PowerPoint slides to be cleaner and easier to read while keeping all the important information.
 
 Your job is to rewrite each slide following these rules:
-1. Keep the same general topic and meaning as the original slide
-2. Write a clear, short title (max 8 words)
-3. Write 2 to 3 bullet points, each around 6 to 10 words. Keep the language natural and close to the original — do not over-simplify
-4. Pick one important word or phrase to highlight (the "highlight" field)
-5. Suggest a background color that matches the tone or topic of the slide. Use soft, varied colors — not just white or dark blue. Examples: light teal, soft amber, pale green, warm cream, light lavender. Use hex codes.
-6. Pick a title color and accent color that contrast well with the background. Keep it readable and visually appealing.
-7. Add a short image description that fits the slide content
+1. Write a clear, descriptive title (max 8 words) that captures the main topic
+2. Write exactly 3 bullet points. Each bullet point must be a complete sentence or complete thought — minimum 8 words, ideally 10 to 14 words. Do not write fragments or single phrases. Every bullet must fully communicate its idea on its own.
+3. Make sure the 3 bullets together tell the full story of the slide. Someone should be able to read just the bullets and understand the concept completely.
+4. Keep the original meaning and facts — do not oversimplify or remove important details
+5. Use plain, clear language — avoid jargon but keep technical terms if they are important
+6. Pick one key word or short phrase to highlight (the "highlight" field) — this should be the most important term on the slide
+7. Suggest a background color that fits the topic. Use soft, varied colors — light teal, soft amber, pale green, warm cream, light lavender, sky blue. Use hex codes without the # symbol.
+8. Pick a title color and accent color that look good on that background and are easy to read.
+
+Do NOT include any image descriptions or imageDesc field.
 
 Return ONLY a valid JSON array. No markdown, no explanation, just raw JSON.
 Format exactly like this:
 [
   {
     "title": "Slide Title Here",
-    "bullets": ["First point around six words", "Second point around six words", "Third point around six words"],
-    "highlight": "important phrase",
-    "imageDesc": "short description of a relevant image",
+    "bullets": [
+      "First complete sentence that fully explains the first point here.",
+      "Second complete sentence that fully explains the second point here.",
+      "Third complete sentence that fully explains the third point here."
+    ],
+    "highlight": "important term",
     "bgColor": "EAF4FB",
     "titleColor": "1A3C5E",
     "accentColor": "2E86C1",
