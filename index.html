@@ -9,7 +9,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
     body {
       font-family: 'Open Sans', 'Segoe UI', Arial, sans-serif;
       background: #f5f4f0;
@@ -19,7 +18,6 @@
       align-items: center;
       padding: 56px 20px 48px;
     }
-
     nav {
       width: 100%;
       max-width: 640px;
@@ -28,7 +26,6 @@
       justify-content: space-between;
       margin-bottom: 64px;
     }
-
     .nav-logo {
       font-size: 17px;
       font-weight: 700;
@@ -38,7 +35,6 @@
       align-items: center;
       gap: 8px;
     }
-
     .nav-dot {
       width: 8px;
       height: 8px;
@@ -46,13 +42,11 @@
       border-radius: 50%;
       display: inline-block;
     }
-
     .hero {
       text-align: center;
       max-width: 480px;
       margin-bottom: 48px;
     }
-
     .badge {
       display: inline-block;
       background: #dbeafe;
@@ -65,7 +59,6 @@
       border-radius: 4px;
       margin-bottom: 18px;
     }
-
     .hero h1 {
       font-size: 2.4rem;
       font-weight: 700;
@@ -74,13 +67,11 @@
       letter-spacing: -0.5px;
       margin-bottom: 14px;
     }
-
     .hero p {
       font-size: 1rem;
       color: #6b7280;
       line-height: 1.65;
     }
-
     .card {
       background: #ffffff;
       border: 1px solid #e5e7eb;
@@ -90,7 +81,6 @@
       max-width: 520px;
       margin-bottom: 12px;
     }
-
     .drop-zone {
       border: 1.5px dashed #d1d5db;
       border-radius: 8px;
@@ -101,12 +91,10 @@
       transition: border-color 0.2s, background 0.2s;
       position: relative;
     }
-
     .drop-zone:hover, .drop-zone.drag-over {
       border-color: #2563eb;
       background: #eff6ff;
     }
-
     .drop-icon {
       width: 40px;
       height: 40px;
@@ -119,10 +107,8 @@
       font-size: 20px;
       pointer-events: none;
     }
-
     .drop-label { font-size: 15px; font-weight: 600; color: #111827; margin-bottom: 4px; pointer-events: none; }
     .drop-sub { font-size: 13px; color: #9ca3af; pointer-events: none; }
-
     .file-row {
       display: none;
       align-items: center;
@@ -133,14 +119,12 @@
       border-radius: 7px;
       margin-top: 14px;
     }
-
     .file-row .filename {
       font-size: 13px;
       font-weight: 500;
       color: #0369a1;
       word-break: break-all;
     }
-
     .main-btn {
       width: 100%;
       padding: 14px;
@@ -155,15 +139,12 @@
       font-family: 'Open Sans', sans-serif;
       transition: background 0.2s;
     }
-
     .main-btn:hover:not(:disabled) { background: #1e40af; }
-
     .main-btn:disabled {
       background: #e5e7eb;
       color: #9ca3af;
       cursor: not-allowed;
     }
-
     .features {
       display: flex;
       gap: 8px;
@@ -172,7 +153,6 @@
       margin-top: 4px;
       margin-bottom: 16px;
     }
-
     .feat {
       flex: 1;
       background: #ffffff;
@@ -181,10 +161,8 @@
       padding: 14px 12px;
       text-align: center;
     }
-
     .feat-icon { font-size: 18px; margin-bottom: 6px; display: block; }
     .feat-label { font-size: 11.5px; color: #6b7280; line-height: 1.4; }
-
     .status-box {
       display: none;
       background: #ffffff;
@@ -196,7 +174,6 @@
       text-align: center;
       margin-bottom: 12px;
     }
-
     .spinner {
       width: 40px;
       height: 40px;
@@ -206,12 +183,9 @@
       animation: spin 0.8s linear infinite;
       margin: 0 auto 20px;
     }
-
     @keyframes spin { to { transform: rotate(360deg); } }
-
     .status-text { font-size: 15px; color: #111827; font-weight: 600; margin-bottom: 4px; }
     .status-sub { font-size: 13px; color: #9ca3af; }
-
     .progress-bar-wrap {
       background: #f3f4f6;
       border-radius: 99px;
@@ -219,7 +193,6 @@
       margin-top: 20px;
       overflow: hidden;
     }
-
     .progress-bar {
       height: 100%;
       background: #2563eb;
@@ -227,7 +200,6 @@
       transition: width 0.4s ease;
       width: 0%;
     }
-
     .download-btn {
       display: none;
       width: 100%;
@@ -243,9 +215,7 @@
       font-family: 'Open Sans', sans-serif;
       transition: background 0.2s;
     }
-
     .download-btn:hover { background: #047857; }
-
     .error-box {
       display: none;
       background: #fef2f2;
@@ -256,7 +226,6 @@
       font-size: 13px;
       margin-top: 14px;
     }
-
     @media (max-width: 500px) {
       .hero h1 { font-size: 1.9rem; }
       .card { padding: 24px 16px; }
@@ -332,47 +301,21 @@
   const downloadBtn = document.getElementById('downloadBtn');
   const errorBox = document.getElementById('errorBox');
 
-  // Click to browse
   dropZone.addEventListener('click', () => fileInput.click());
-
-  // Drag over
-  dropZone.addEventListener('dragenter', e => {
-    e.preventDefault();
-    e.stopPropagation();
-    dropZone.classList.add('drag-over');
-  });
-
-  dropZone.addEventListener('dragover', e => {
-    e.preventDefault();
-    e.stopPropagation();
-    dropZone.classList.add('drag-over');
-  });
-
-  dropZone.addEventListener('dragleave', e => {
-    e.preventDefault();
-    e.stopPropagation();
-    dropZone.classList.remove('drag-over');
-  });
-
+  dropZone.addEventListener('dragenter', e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragover', e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.add('drag-over'); });
+  dropZone.addEventListener('dragleave', e => { e.preventDefault(); e.stopPropagation(); dropZone.classList.remove('drag-over'); });
   dropZone.addEventListener('drop', e => {
     e.preventDefault();
     e.stopPropagation();
     dropZone.classList.remove('drag-over');
-    const file = e.dataTransfer.files[0];
-    handleFile(file);
+    handleFile(e.dataTransfer.files[0]);
   });
-
-  // File input change
-  fileInput.addEventListener('change', () => {
-    handleFile(fileInput.files[0]);
-  });
+  fileInput.addEventListener('change', () => handleFile(fileInput.files[0]));
 
   function handleFile(file) {
     if (!file) return;
-    if (!file.name.toLowerCase().endsWith('.pptx')) {
-      showError('Please upload a .pptx file.');
-      return;
-    }
+    if (!file.name.toLowerCase().endsWith('.pptx')) { showError('Please upload a .pptx file.'); return; }
     uploadedFile = file;
     fileName.textContent = file.name;
     fileRow.style.display = 'flex';
@@ -386,22 +329,14 @@
     statusBox.style.display = 'block';
     downloadBtn.style.display = 'none';
     setProgress(5, 'Reading your slides...');
-
     try {
       const slideTexts = await extractSlidesFromPptx(uploadedFile);
       setProgress(20, `Found ${slideTexts.length} slides. Sending to AI...`);
-
       const rewritten = await rewriteWithGroq(slideTexts);
       setProgress(70, 'AI done! Building your new slides...');
-
       fixedBlob = await buildPptx(rewritten);
       setProgress(100, 'Done! Your slides are ready.');
-
-      setTimeout(() => {
-        statusBox.style.display = 'none';
-        downloadBtn.style.display = 'block';
-      }, 800);
-
+      setTimeout(() => { statusBox.style.display = 'none'; downloadBtn.style.display = 'block'; }, 800);
     } catch (err) {
       statusBox.style.display = 'none';
       showError('Something went wrong: ' + err.message);
@@ -424,35 +359,21 @@
     statusText.textContent = text;
     if (sub) statusSub.textContent = sub;
   }
-
-  function showError(msg) {
-    errorBox.textContent = msg;
-    errorBox.style.display = 'block';
-  }
-
-  function hideError() {
-    errorBox.style.display = 'none';
-  }
+  function showError(msg) { errorBox.textContent = msg; errorBox.style.display = 'block'; }
+  function hideError() { errorBox.style.display = 'none'; }
 
   async function extractSlidesFromPptx(file) {
     const arrayBuffer = await file.arrayBuffer();
     const zip = await JSZip.loadAsync(arrayBuffer);
-
     const slideFiles = Object.keys(zip.files)
       .filter(name => name.match(/^ppt\/slides\/slide\d+\.xml$/))
-      .sort((a, b) => {
-        const na = parseInt(a.match(/\d+/)[0]);
-        const nb = parseInt(b.match(/\d+/)[0]);
-        return na - nb;
-      });
-
+      .sort((a, b) => parseInt(a.match(/\d+/)[0]) - parseInt(b.match(/\d+/)[0]));
     const slides = [];
     for (const slidePath of slideFiles) {
       const xml = await zip.files[slidePath].async('text');
       const text = extractTextFromSlideXml(xml);
       if (text.trim()) slides.push(text.trim());
     }
-
     return slides;
   }
 
@@ -460,20 +381,14 @@
     const paragraphs = [];
     const paraMatches = [...xml.matchAll(/<a:p[ >][\s\S]*?<\/a:p>/g)];
     for (const p of paraMatches) {
-      const runs = [...p[0].matchAll(/<a:t[^>]*>([^<]*)<\/a:t>/g)]
-        .map(m => decodeXmlEntities(m[1])).join('');
+      const runs = [...p[0].matchAll(/<a:t[^>]*>([^<]*)<\/a:t>/g)].map(m => decodeXmlEntities(m[1])).join('');
       if (runs.trim()) paragraphs.push(runs.trim());
     }
     return paragraphs.join('\n');
   }
 
   function decodeXmlEntities(str) {
-    return str
-      .replace(/&amp;/g, '&')
-      .replace(/&lt;/g, '<')
-      .replace(/&gt;/g, '>')
-      .replace(/&quot;/g, '"')
-      .replace(/&apos;/g, "'");
+    return str.replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&apos;/g,"'");
   }
 
   async function rewriteWithGroq(slides) {
@@ -482,19 +397,27 @@
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ slides })
     });
-
     if (!response.ok) {
       const err = await response.json().catch(() => ({}));
       throw new Error(err.error || `API error ${response.status}`);
     }
-
     const data = await response.json();
     return data.slides;
+  }
+
+  // Estimate how many lines a bullet will wrap to at fontSize 19, width ~8.6 inches
+  // Approximate: ~105 chars per line at this size
+  function estimateLines(text, charsPerLine = 90) {
+    return Math.max(1, Math.ceil(text.length / charsPerLine));
   }
 
   async function buildPptx(slides) {
     const pres = new PptxGenJS();
     pres.layout = 'LAYOUT_16x9';
+
+    const LINE_H = 0.32;    // height per line of text
+    const PADDING = 0.18;   // top/bottom padding inside box
+    const GAP = 0.14;       // gap between boxes
 
     for (let i = 0; i < slides.length; i++) {
       const s = slides[i];
@@ -504,12 +427,13 @@
       const titleColor = s.titleColor || '1E3A5F';
       const accentColor = s.accentColor || '3B82F6';
       const bodyColor = s.bodyColor || '374151';
+      const highlightBg = 'EFF6FF';
+      const highlightBorder = 'BFDBFE';
 
       slide.background = { color: bg };
 
-      const isFirst = i === 0;
-
-      if (isFirst) {
+      if (i === 0) {
+        // Title slide
         slide.addText(s.title, {
           x: 0.8, y: 1.4, w: 8.4, h: 2.0,
           fontSize: 40, bold: true, color: titleColor,
@@ -518,12 +442,12 @@
         if (s.bullets && s.bullets.length > 0) {
           slide.addText(s.bullets[0], {
             x: 0.8, y: 3.6, w: 8.4, h: 0.9,
-            fontSize: 22, color: bodyColor,
+            fontSize: 20, color: bodyColor,
             fontFace: 'Calibri', align: 'center'
           });
         }
       } else {
-        // Accent bar on left
+        // Accent bar
         slide.addShape(pres.shapes.RECTANGLE, {
           x: 0, y: 0, w: 0.18, h: 5.625,
           fill: { color: accentColor }, line: { color: accentColor }
@@ -538,55 +462,66 @@
         // Title
         slide.addText(s.title, {
           x: 0.5, y: 0.2, w: 8.8, h: 0.85,
-          fontSize: 30, bold: true, color: titleColor,
+          fontSize: 28, bold: true, color: titleColor,
           fontFace: 'Calibri', valign: 'middle'
         });
 
-        // Divider line
+        // Divider
         slide.addShape(pres.shapes.RECTANGLE, {
-          x: 0.5, y: 1.1, w: 8.8, h: 0.04,
+          x: 0.5, y: 1.1, w: 8.8, h: 0.03,
           fill: { color: 'E2E8F0' }, line: { color: 'E2E8F0' }
         });
 
         const bullets = s.bullets || [];
-        const highlight = s.highlight || '';
+        const highlight = (s.highlight || '').toLowerCase();
 
-        let yPos = 1.35;
+        let yPos = 1.22;
+
         for (let b = 0; b < Math.min(bullets.length, 3); b++) {
           const bulletText = bullets[b];
-          const isHighlighted = highlight && bulletText.toLowerCase().includes(highlight.toLowerCase());
+          const hasHighlight = highlight && bulletText.toLowerCase().includes(highlight);
+          const lines = estimateLines(bulletText);
+          const boxH = lines * LINE_H + PADDING * 2;
 
-          if (isHighlighted) {
+          // Draw highlight background box — same size as text box
+          if (hasHighlight) {
             slide.addShape(pres.shapes.RECTANGLE, {
-              x: 0.45, y: yPos - 0.05, w: 8.9, h: 0.78,
-              fill: { color: 'EFF6FF' }, line: { color: 'BFDBFE', pt: 1 }
+              x: 0.38, y: yPos,
+              w: 9.2, h: boxH,
+              fill: { color: highlightBg },
+              line: { color: highlightBorder, pt: 1 }
             });
           }
 
-          let textRuns;
-          if (isHighlighted) {
-            const idx = bulletText.toLowerCase().indexOf(highlight.toLowerCase());
-            const before = bulletText.slice(0, idx);
-            const match = bulletText.slice(idx, idx + highlight.length);
-            const after = bulletText.slice(idx + highlight.length);
-            textRuns = [
-              ...(before ? [{ text: before, options: { color: bodyColor } }] : []),
-              { text: match, options: { bold: true, color: accentColor } },
-              ...(after ? [{ text: after, options: { color: bodyColor } }] : [])
-            ];
+          // Build text runs — bold+color the highlight term wherever it appears
+          let textRuns = [];
+          if (hasHighlight) {
+            const regex = new RegExp(`(${s.highlight.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')})`, 'gi');
+            const parts = bulletText.split(regex);
+            for (const part of parts) {
+              if (part.toLowerCase() === highlight) {
+                textRuns.push({ text: part, options: { bold: true, color: accentColor } });
+              } else if (part) {
+                textRuns.push({ text: part, options: { color: bodyColor } });
+              }
+            }
           } else {
             textRuns = [{ text: bulletText, options: { color: bodyColor } }];
           }
 
           slide.addText(textRuns, {
-            x: 0.7, y: yPos, w: 8.6, h: 0.68,
-            fontSize: 19, fontFace: 'Calibri',
-            bullet: true,
+            x: 0.38, y: yPos,
+            w: 9.2, h: boxH,
+            fontSize: 17,
+            fontFace: 'Calibri',
+            bullet: { indent: 20 },
             valign: 'middle',
-            wrap: true
+            wrap: true,
+            insetX: 0.15,
+            insetY: PADDING
           });
 
-          yPos += 1.0;
+          yPos += boxH + GAP;
         }
       }
     }
